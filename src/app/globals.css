@@ -21,6 +21,65 @@
 
 body {
   background: var(--background);
+  background: #020617;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.aurora::before {
+  content: "";
+  position: absolute;
+
+  width: 800px;
+  height: 800px;
+
+  top: -200px;
+  left: -200px;
+
+  background: radial-gradient(circle,
+      rgba(59, 130, 246, 0.25),
+      transparent 70%);
+
+  filter: blur(120px);
+
+  animation: float1 15s infinite ease-in-out;
+}
+
+.aurora::after {
+  content: "";
+
+  position: absolute;
+
+  width: 900px;
+  height: 900px;
+
+  right: -300px;
+  bottom: -300px;
+
+  background: radial-gradient(circle,
+      rgba(37, 99, 235, 0.18),
+      transparent 70%);
+
+  filter: blur(120px);
+
+  animation: float2 18s infinite ease-in-out;
+}
+
+@keyframes float1 {
+  50% {
+    transform: translate(150px, 100px);
+  }
+}
+
+@keyframes float2 {
+  50% {
+    transform: translate(-150px, -100px);
+  }
 }
