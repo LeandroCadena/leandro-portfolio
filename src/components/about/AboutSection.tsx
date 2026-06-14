@@ -1,13 +1,39 @@
 "use client";
 
-import { Mail, MapPin } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import {
+    Code2,
+    FolderGit2,
+    Rocket,
+    Calendar,
+} from "lucide-react";
 import { profile } from "@/data/profile";
-import { currentlyLearning, softSkills } from "@/data/skills";
+import { softSkills } from "@/data/skills";
 import PageAnimation from "@/components/shared/PageAnimation";
 import Card from "@/components/shared/Card";
+import { useEffect, useState } from "react";
+import type { GithubLearningProject } from "@/types/githubLearning";
 
 export default function AboutSection() {
+    const [learningProject, setLearningProject] =
+        useState<GithubLearningProject | null>(null);
+
+    useEffect(() => {
+        async function fetchLearningProject() {
+            try {
+                const response = await fetch("/api/current-learning");
+
+                if (!response.ok) return;
+
+                const data: GithubLearningProject | null = await response.json();
+
+                setLearningProject(data);
+            } catch (error) {
+                console.error("Error loading current learning project:", error);
+            }
+        }
+
+        fetchLearningProject();
+    }, []);
     return (
         <PageAnimation>
             <p className="mb-4 text-sm uppercase tracking-[0.3em] text-blue-400">
@@ -32,21 +58,57 @@ export default function AboutSection() {
                     </p>
 
                     <div className="mt-8 grid gap-4 md:grid-cols-4">
-                        <InfoCard icon={<FaLinkedin />} title="LinkedIn" text="Connect with me" />
-                        <InfoCard icon={<FaGithub />} title="GitHub" text="View my code" />
-                        <InfoCard icon={<Mail />} title="Email" text="Send a message" />
-                        <InfoCard icon={<MapPin />} title="Location" text="Argentina" />
+                        <InfoCard
+                            icon={"⚙️"}
+                            title="Backend APIs"
+                            text="Designing scalable services, REST APIs and business logic."
+                        />
+
+                        <InfoCard
+                            icon={"🔗"}
+                            title="System Integrations"
+                            text="Payroll, HRIS and third-party platform integrations."
+                        />
+
+                        <InfoCard
+                            icon={"☁️"}
+                            title="Cloud & DevOps"
+                            text="AWS, Docker, CI/CD and production deployments."
+                        />
+
+                        <InfoCard
+                            icon={"🚀"}
+                            title="Performance"
+                            text="Profiling, optimization and production troubleshooting."
+                        />
                     </div>
                 </div>
 
                 <Card title="// Currently Learning">
-                    {currentlyLearning.map((item) => (
-                        <LearningItem
-                            key={item.title}
-                            title={item.title}
-                            value={item.value}
-                        />
-                    ))}
+                    <LearningItem
+                        icon={<FolderGit2 size={24} />}
+                        title="Latest Project"
+                        value={learningProject?.title || "Loading latest project..."}
+                    />
+
+                    <LearningTechItem
+                        icon={<Code2 size={24} />}
+                        title="Tech Stack"
+                        technologies={learningProject?.technologies || []}
+                    />
+
+                    <LearningItem
+                        icon={<Rocket size={24} />}
+                        title="Project Focus"
+                        value={learningProject?.description || "Reading project description..."}
+                        scrollable
+                    />
+
+                    <LearningItem
+                        icon={<Calendar size={24} />}
+                        title="Started"
+                        value={learningProject ? formatDate(learningProject.createdAt) : "Loading..."}
+                    />
                 </Card>
             </div>
 
@@ -133,7 +195,9 @@ function InfoCard({
 }) {
     return (
         <div className="rounded-2xl border border-blue-500/20 bg-slate-950/50 p-4 transition hover:-translate-y-1 hover:bg-blue-500/10">
-            <div className="mb-3 text-blue-400">{icon}</div>
+            <div className="mb-3 text-2xl text-blue-400">
+                {icon}
+            </div>
             <h3 className="font-semibold">{title}</h3>
             <p className="text-xs text-slate-400">{text}</p>
         </div>
@@ -141,18 +205,72 @@ function InfoCard({
 }
 
 function LearningItem({
+    icon,
     title,
     value,
+    scrollable = false,
 }: {
+    icon: React.ReactNode;
     title: string;
     value: string;
+    scrollable?: boolean;
 }) {
     return (
-        <div className="flex items-center gap-4 border-b border-blue-500/10 py-5 last:border-b-0">
-            <div className="h-14 w-14 rounded-xl bg-blue-500/10" />
-            <div>
+        <div className="flex items-start gap-4 border-b border-blue-500/10 py-5 last:border-b-0">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
+                {icon}
+            </div>
+
+            <div className="min-w-0 flex-1">
                 <p className="text-sm text-slate-400">{title}</p>
-                <p className="text-lg font-semibold">{value}</p>
+
+                <p
+                    className={`text-lg font-semibold text-white ${scrollable
+                        ? "max-h-24 overflow-y-auto pr-2 leading-relaxed modern-scroll"
+                        : ""
+                        }`}
+                >
+                    {value}
+                </p>
+            </div>
+        </div>
+    );
+}
+
+function LearningTechItem({
+    icon,
+    title,
+    technologies,
+}: {
+    icon: React.ReactNode;
+    title: string;
+    technologies: string[];
+}) {
+    return (
+        <div className="flex items-start gap-4 border-b border-blue-500/10 py-5 last:border-b-0">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
+                {icon}
+            </div>
+
+            <div className="min-w-0 flex-1">
+                <p className="mb-2 text-sm text-slate-400">{title}</p>
+
+                <div className="modern-scroll flex max-h-24 flex-wrap gap-2 overflow-y-auto pr-2">
+                    {technologies.length > 0 ? (
+                        technologies.map((tech) => (
+                            <span
+                                key={tech}
+                                className="rounded-lg border border-blue-400/15 bg-slate-950/50 px-3 py-1 text-xs text-blue-100"
+                            >
+                                {tech}
+                            </span>
+                        ))
+                    ) : (
+                        <span className="text-lg font-semibold text-white">
+                            Detecting stack...
+                        </span>
+                    )}
+                </div>
             </div>
         </div>
     );
@@ -187,4 +305,11 @@ function TechGroup({
             </div>
         </div>
     );
+}
+
+function formatDate(date: string) {
+    return new Intl.DateTimeFormat("en", {
+        month: "short",
+        year: "numeric",
+    }).format(new Date(date));
 }

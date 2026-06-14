@@ -83,3 +83,53 @@ body {
     transform: translate(-150px, -100px);
   }
 }
+
+.modern-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.modern-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modern-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modern-scroll::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+
+/* Cuando el mouse está encima del contenedor */
+
+.modern-scroll:hover {
+  scrollbar-color: rgba(59, 130, 246, 0.65) transparent;
+}
+
+.modern-scroll:hover::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.65);
+}
+
+.modern-scroll:hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.7);
+}
+
+.fade-scroll {
+  position: relative;
+}
+
+.fade-scroll::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 24px;
+  pointer-events: none;
+
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(2, 8, 23));
+}

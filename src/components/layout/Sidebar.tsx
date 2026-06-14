@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FileText, FolderGit2, Mail, MapPin, User } from "lucide-react";
+import { FileText, FolderGit2, Languages, Mail, MapPin, Phone, User, Globe } from "lucide-react";
 import {
     FaGithub,
     FaLinkedin,
@@ -86,16 +86,35 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
                 })}
             </nav>
 
-            <div className="mt-10 border-t border-blue-500/20 pt-6 text-sm text-slate-300">
-                <p className="mb-4 flex items-center gap-2">
-                    <Mail size={16} /> {profile.email}
-                </p>
+            <div className="mt-6 border-t border-blue-500/20 pt-6 text-sm text-slate-300">
+                <div className="space-y-4 text-sm text-slate-300">
+                    <div className="flex items-center gap-3">
+                        <MapPin size={16} className="text-blue-400" />
+                        <span>{profile.location}</span>
+                    </div>
 
-                <p className="mb-4 flex items-center gap-2">
-                    <MapPin size={16} /> {profile.location}
-                </p>
+                    <div className="flex items-center gap-3">
+                        <Mail size={16} className="text-blue-400" />
+                        <span>{profile.email}</span>
+                    </div>
 
-                <div className="mt-6 flex gap-3">
+                    <div className="flex items-center gap-3">
+                        <Phone size={16} className="text-blue-400" />
+                        <span>{profile.phone}</span>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                        <Globe size={16} className="text-blue-400" />
+                        <span>{profile.availability}</span>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                        <Languages size={16} className="text-blue-400" />
+                        <span>{profile.english}</span>
+                    </div>
+                </div>
+
+                <div className="mt-6 flex gap-3 border-t border-blue-500/20 pt-6">
                     <a
                         href={profile.links.github}
                         target="_blank"
@@ -132,6 +151,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
                         )}
                     </button>
                 </div>
+
             </div>
         </aside>
     );
