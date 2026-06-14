@@ -9,8 +9,8 @@ export const profile = {
         "I'm a Full Stack Developer from Argentina with experience building enterprise applications, backend services, APIs and integrations. I enjoy solving complex problems, improving performance and learning new technologies.",
 
     links: {
-        github: "https://github.com/TU_USUARIO",
-        linkedin: "https://www.linkedin.com/in/TU_USUARIO",
-        email: "mailto:leandro.cadena.dev@gmail.com",
+        github: "https://github.com/LeandroCadena",
+        linkedin: "https://www.linkedin.com/in/leandro-cadena/",
+        email: "mailto:cadenaleandro97@gmail.com",
     },
 };
