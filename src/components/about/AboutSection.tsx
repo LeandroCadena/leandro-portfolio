@@ -2,6 +2,8 @@
 
 import { Mail, MapPin } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { profile } from "@/data/profile";
+import { currentlyLearning, softSkills } from "@/data/skills";
 import PageAnimation from "@/components/shared/PageAnimation";
 import Card from "@/components/shared/Card";
 
@@ -9,7 +11,7 @@ export default function AboutSection() {
     return (
         <PageAnimation>
             <p className="mb-4 text-sm uppercase tracking-[0.3em] text-blue-400">
-        // About Me
+                {"// About Me"}
             </p>
 
             <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
@@ -17,19 +19,16 @@ export default function AboutSection() {
                     <div className="mb-6 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                         <div>
                             <h2 className="mb-3 text-4xl font-bold">
-                                Hi, I&apos;m Leandro Cadena
+                                Hi, I&apos;m {profile.name}
                             </h2>
-                            <p className="text-xl text-blue-400">Full Stack Developer</p>
+                            <p className="text-xl text-blue-400">{profile.title}</p>
                         </div>
 
-                        <ExperienceBadge />
+                        <ExperienceBadge years={profile.yearsOfExperience} />
                     </div>
 
                     <p className="max-w-3xl text-slate-300">
-                        I&apos;m a Full Stack Developer from Argentina with experience
-                        building enterprise applications, backend services, APIs and
-                        integrations. I enjoy solving complex problems, improving
-                        performance and learning new technologies.
+                        {profile.description}
                     </p>
 
                     <div className="mt-8 grid gap-4 md:grid-cols-4">
@@ -41,10 +40,13 @@ export default function AboutSection() {
                 </div>
 
                 <Card title="// Currently Learning">
-                    <LearningItem title="Technology" value="Next.js + Advanced UI" />
-                    <LearningItem title="Current Project" value="Personal Portfolio" />
-                    <LearningItem title="Progress Time" value="In progress" />
-                    <LearningItem title="Course / Resource" value="Self-learning + Practice" />
+                    {currentlyLearning.map((item) => (
+                        <LearningItem
+                            key={item.title}
+                            title={item.title}
+                            value={item.value}
+                        />
+                    ))}
                 </Card>
             </div>
 
@@ -76,16 +78,7 @@ export default function AboutSection() {
 
                 <Card title="// Soft Skills">
                     <div className="grid gap-3 md:grid-cols-2">
-                        {[
-                            "Problem Solving",
-                            "Fast Learning",
-                            "Ownership",
-                            "Communication",
-                            "Remote Collaboration",
-                            "Attention to Detail",
-                            "Adaptability",
-                            "Teamwork",
-                        ].map((skill) => (
+                        {softSkills.map((skill) => (
                             <div
                                 key={skill}
                                 className="flex items-center gap-3 rounded-2xl border border-blue-400/10 bg-blue-500/5 p-4 text-sm text-slate-200 transition hover:bg-blue-500/10"
@@ -101,7 +94,7 @@ export default function AboutSection() {
     );
 }
 
-function ExperienceBadge() {
+function ExperienceBadge({ years }: { years: number }) {
     return (
         <div className="relative flex h-36 w-36 shrink-0 items-center justify-center">
             <div
@@ -117,7 +110,7 @@ function ExperienceBadge() {
             />
 
             <div className="z-10 text-center">
-                <p className="text-5xl font-bold text-blue-300">5</p>
+                <p className="text-5xl font-bold text-blue-300">{years}</p>
                 <p className="mt-2 text-xs uppercase tracking-[0.2em] text-slate-400">
                     Years
                 </p>
