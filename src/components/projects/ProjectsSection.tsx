@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ExternalLink, Loader2, Star } from "lucide-react";
+import { ExternalLink, Loader2 } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import PageAnimation from "@/components/shared/PageAnimation";
 import type { PortfolioProject } from "@/types/project";
@@ -40,7 +40,7 @@ export default function ProjectsSection() {
                 </p>
 
                 <a
-                    href="https://github.com/cadenaleandro97"
+                    href="https://github.com/LeandroCadena"
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold hover:bg-blue-500"
@@ -92,11 +92,6 @@ function ProjectCard({ project }: { project: PortfolioProject }) {
 
             <div className="mb-3 flex items-start justify-between gap-3">
                 <h3 className="text-xl font-bold">{project.title}</h3>
-
-                <span className="flex items-center gap-1 rounded-lg bg-blue-500/10 px-2 py-1 text-xs text-blue-300">
-                    <Star size={12} />
-                    {project.stars}
-                </span>
             </div>
 
             <p className="mb-5 min-h-[70px] text-sm text-slate-300">

@@ -48,11 +48,19 @@ export async function GET() {
             );
         }
 
+        const excludedRepos = [
+            "portfolio",
+            "leandrocadena",
+            ".github",
+        ];
+
         const repos: GithubRepo[] = await reposResponse.json();
 
         const projects = await Promise.all(
             repos
-                .filter((repo) => !repo.fork)
+                .filter((repo) =>
+                    !repo.fork &&
+                    !excludedRepos.includes(repo.name.toLowerCase()))
                 .map(async (repo): Promise<PortfolioProject> => {
                     const readme = await fetchReadme(repo.name);
                     const imageUrl = await fetchProjectImage(repo.name);
