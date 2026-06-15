@@ -13,13 +13,100 @@ import {
     Search,
     RefreshCw,
     Users,
+    Cloud,
 } from "lucide-react";
+import {
+    SiJavascript,
+    SiTypescript,
+    SiReact,
+    SiNextdotjs,
+    SiNodedotjs,
+    SiExpress,
+    SiGo,
+    SiPostgresql,
+    SiMongodb,
+    SiMysql,
+    SiRedis,
+    SiDocker,
+    SiGit,
+    SiPostman,
+} from "react-icons/si";
 import { profile } from "@/data/profile";
 import { softSkills } from "@/data/skills";
 import PageAnimation from "@/components/shared/PageAnimation";
 import Card from "@/components/shared/Card";
 import { useEffect, useState } from "react";
 import type { GithubLearningProject } from "@/types/githubLearning";
+
+const techCategories = [
+    {
+        title: "Frontend",
+        items: [
+            { name: "JavaScript", icon: <SiJavascript /> },
+            { name: "TypeScript", icon: <SiTypescript /> },
+            { name: "React", icon: <SiReact /> },
+            { name: "Next.js", icon: <SiNextdotjs /> },
+        ],
+    },
+    {
+        title: "Backend",
+        items: [
+            { name: "Node.js", icon: <SiNodedotjs /> },
+            { name: "Express", icon: <SiExpress /> },
+            { name: "Go", icon: <SiGo /> },
+            { name: "REST APIs", icon: "API" },
+        ],
+    },
+    {
+        title: "Databases",
+        items: [
+            { name: "PostgreSQL", icon: <SiPostgresql /> },
+            { name: "MongoDB", icon: <SiMongodb /> },
+            { name: "MySQL", icon: <SiMysql /> },
+            { name: "Redis", icon: <SiRedis /> },
+        ],
+    },
+    {
+        title: "Cloud & Tools",
+        items: [
+            { name: "Docker", icon: <SiDocker /> },
+            { name: "AWS", icon: <Cloud size={18} /> },
+            { name: "Git", icon: <SiGit /> },
+            { name: "Postman", icon: <SiPostman /> },
+        ],
+    },
+];
+
+const coreStack = [
+    { name: "Node.js", icon: <SiNodedotjs /> },
+    { name: "TypeScript", icon: <SiTypescript /> },
+    { name: "React", icon: <SiReact /> },
+    { name: "PostgreSQL", icon: <SiPostgresql /> },
+    { name: "Docker", icon: <SiDocker /> },
+];
+
+const softSkillsDetailed = [
+    {
+        title: "Problem Solving",
+        description: "Breaking down complex issues and finding practical solutions.",
+        icon: <Brain size={20} />,
+    },
+    {
+        title: "Fast Learning",
+        description: "Quickly adapting to new tools, domains and technical challenges.",
+        icon: <Zap size={20} />,
+    },
+    {
+        title: "Ownership",
+        description: "Taking responsibility from analysis to delivery.",
+        icon: <Target size={20} />,
+    },
+    {
+        title: "Communication",
+        description: "Clear collaboration with remote and international teams.",
+        icon: <MessageSquare size={20} />,
+    },
+];
 
 export default function AboutSection() {
     const [learningProject, setLearningProject] =
@@ -59,7 +146,7 @@ export default function AboutSection() {
                 {"// About Me"}
             </p>
 
-            <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
+            <div className="grid gap-6 xl:grid-cols-[1.75fr_0.75fr]">
                 <div className="rounded-3xl border border-blue-400/10 bg-slate-950/40 p-8 shadow-[0_0_50px_rgba(59,130,246,0.08)] backdrop-blur-xl">
                     <div className="mb-6 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                         <div>
@@ -75,6 +162,38 @@ export default function AboutSection() {
                     <p className="max-w-3xl text-slate-300">
                         {profile.description}
                     </p>
+
+                    <div className="mt-5 flex flex-wrap gap-3">
+                        {profile.badges.map((badge) => (
+                            <span
+                                key={badge}
+                                className="rounded-full border border-blue-400/15 bg-blue-500/10 px-4 py-2 text-xs font-medium text-blue-200"
+                            >
+                                {badge}
+                            </span>
+                        ))}
+                    </div>
+
+                    <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                        {profile.impactMetrics.map((metric) => (
+                            <div
+                                key={metric.label}
+                                className="rounded-2xl border border-blue-400/10 bg-blue-500/5 p-4"
+                            >
+                                <p className="text-2xl font-bold text-blue-300">
+                                    {metric.value}
+                                </p>
+
+                                <p className="mt-1 text-sm font-semibold text-white">
+                                    {metric.label}
+                                </p>
+
+                                <p className="mt-1 text-xs text-slate-400">
+                                    {metric.detail}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
 
                     <div className="mt-8 grid gap-4 md:grid-cols-4">
                         <InfoCard
@@ -131,74 +250,63 @@ export default function AboutSection() {
                 </Card>
             </div>
 
-            <div className="mt-6 grid gap-6 lg:grid-cols-2">
+            <div className="mt-6 grid gap-6 xl:grid-cols-[1.75fr_0.75fr]">
                 <Card title="// Tech Stack">
-                    <div className="space-y-1">
-                        <TechGroup
-                            title="Strongest"
-                            years="5 years"
-                            items={["JavaScript", "React", "Node.js", "REST APIs"]}
-                        />
-                        <TechGroup
-                            title="Advanced"
-                            years="3+ years"
-                            items={["TypeScript", "Express", "PostgreSQL", "Docker"]}
-                        />
-                        <TechGroup
-                            title="Intermediate"
-                            years="1-2 years"
-                            items={["AWS", "Redis", "NestJS", "MySQL"]}
-                        />
-                        <TechGroup
-                            title="Learning"
-                            years="Current"
-                            items={["Next.js", "Framer Motion", "System Design"]}
-                        />
+                    <div className="mb-6">
+                        <h4 className="mb-3 text-sm font-semibold uppercase tracking-widest text-blue-300">
+                            Core Stack
+                        </h4>
+
+                        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
+                            {coreStack.map((tech) => (
+                                <TechIconCard
+                                    key={tech.name}
+                                    name={tech.name}
+                                    icon={tech.icon}
+                                    featured
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="space-y-5">
+                        {techCategories.map((category) => (
+                            <div key={category.title}>
+                                <h4 className="mb-3 text-sm font-semibold uppercase tracking-widest text-blue-300">
+                                    {category.title}
+                                </h4>
+
+                                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                                    {category.items.map((tech) => (
+                                        <TechIconCard
+                                            key={tech.name}
+                                            name={tech.name}
+                                            icon={tech.icon}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </Card>
 
                 <Card title="// Soft Skills">
-                    <div className="grid gap-3 md:grid-cols-2">
-                        {softSkills.map((skill) => (
+                    <div className="grid gap-4">
+                        {softSkillsDetailed.map((skill) => (
                             <div
-                                key={skill}
-                                className="
-                                group
-                                flex
-                                items-center
-                                gap-4
-                                rounded-2xl
-                                border
-                                border-blue-400/10
-                                bg-blue-500/5
-                                p-4
-                                transition-all
-                                duration-300
-                                hover:-translate-y-1
-                                hover:border-blue-400/20
-                                hover:bg-blue-500/10
-                                "
+                                key={skill.title}
+                                className="group flex items-start gap-4 rounded-2xl border border-blue-400/10 bg-blue-500/5 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/25 hover:bg-blue-500/10"
                             >
-                                <div
-                                    className="
-                                flex
-                                h-10
-                                w-10
-                                items-center
-                                justify-center
-                                rounded-xl
-                                bg-blue-500/10
-                                text-blue-400
-                                transition
-                                group-hover:bg-blue-500/20
-                                "
-                                >
-                                    {softSkillIcons[skill]}
+                                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 transition group-hover:bg-blue-500/20 group-hover:text-blue-300">
+                                    {skill.icon}
                                 </div>
 
-                                <span className="font-medium text-slate-200">
-                                    {skill}
-                                </span>
+                                <div>
+                                    <h4 className="font-semibold text-white">{skill.title}</h4>
+                                    <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                                        {skill.description}
+                                    </p>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -208,7 +316,39 @@ export default function AboutSection() {
     );
 }
 
-function ExperienceBadge({ years }: { years: number }) {
+function TechIconCard({
+    name,
+    icon,
+    featured = false,
+}: {
+    name: string;
+    icon: React.ReactNode;
+    featured?: boolean;
+}) {
+    return (
+        <div
+            className={`group flex min-w-0 items-center gap-3 rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-1 ${featured
+                ? "border-blue-400/25 bg-blue-500/10 shadow-[0_0_22px_rgba(59,130,246,0.12)]"
+                : "border-blue-400/10 bg-blue-500/5 hover:border-blue-400/30 hover:bg-blue-500/10"
+                }`}
+        >
+            <div
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-xl transition ${featured
+                    ? "bg-blue-500/20 text-blue-300"
+                    : "bg-blue-500/10 text-blue-400 group-hover:bg-blue-500/20 group-hover:text-blue-300"
+                    }`}
+            >
+                {icon}
+            </div>
+
+            <span className="min-w-0 truncate text-sm font-medium text-slate-200">
+                {name}
+            </span>
+        </div>
+    );
+}
+
+function ExperienceBadge({ years }: { years: string }) {
     return (
         <div className="relative flex h-36 w-36 shrink-0 items-center justify-center">
             <div

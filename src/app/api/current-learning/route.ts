@@ -162,7 +162,16 @@ function extractReadmeDescription(readme: string | null) {
             !line.startsWith("-")
     );
 
-    return description || null;
+    if (!description) return null;
+
+    return description
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+        .replace(/`([^`]+)`/g, "$1")
+        .replace(/\*\*([^*]+)\*\*/g, "$1")
+        .replace(/\*([^*]+)\*/g, "$1")
+        .replace(/_/g, "")
+        .trim()
+        .slice(0, 180);
 }
 
 function formatRepoName(name: string) {
