@@ -5,6 +5,14 @@ import {
     FolderGit2,
     Rocket,
     Calendar,
+    Brain,
+    Zap,
+    Target,
+    MessageSquare,
+    Globe,
+    Search,
+    RefreshCw,
+    Users,
 } from "lucide-react";
 import { profile } from "@/data/profile";
 import { softSkills } from "@/data/skills";
@@ -34,6 +42,17 @@ export default function AboutSection() {
 
         fetchLearningProject();
     }, []);
+
+    const softSkillIcons: Record<string, React.ReactNode> = {
+        "Problem Solving": <Brain size={20} />,
+        "Fast Learning": <Zap size={20} />,
+        Ownership: <Target size={20} />,
+        Communication: <MessageSquare size={20} />,
+        "Remote Collaboration": <Globe size={20} />,
+        "Attention to Detail": <Search size={20} />,
+        Adaptability: <RefreshCw size={20} />,
+        Teamwork: <Users size={20} />,
+    };
     return (
         <PageAnimation>
             <p className="mb-4 text-sm uppercase tracking-[0.3em] text-blue-400">
@@ -143,10 +162,43 @@ export default function AboutSection() {
                         {softSkills.map((skill) => (
                             <div
                                 key={skill}
-                                className="flex items-center gap-3 rounded-2xl border border-blue-400/10 bg-blue-500/5 p-4 text-sm text-slate-200 transition hover:bg-blue-500/10"
+                                className="
+                                group
+                                flex
+                                items-center
+                                gap-4
+                                rounded-2xl
+                                border
+                                border-blue-400/10
+                                bg-blue-500/5
+                                p-4
+                                transition-all
+                                duration-300
+                                hover:-translate-y-1
+                                hover:border-blue-400/20
+                                hover:bg-blue-500/10
+                                "
                             >
-                                <div className="h-10 w-10 rounded-lg bg-blue-500/10" />
-                                {skill}
+                                <div
+                                    className="
+                                flex
+                                h-10
+                                w-10
+                                items-center
+                                justify-center
+                                rounded-xl
+                                bg-blue-500/10
+                                text-blue-400
+                                transition
+                                group-hover:bg-blue-500/20
+                                "
+                                >
+                                    {softSkillIcons[skill]}
+                                </div>
+
+                                <span className="font-medium text-slate-200">
+                                    {skill}
+                                </span>
                             </div>
                         ))}
                     </div>
