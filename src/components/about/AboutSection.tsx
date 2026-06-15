@@ -14,6 +14,10 @@ import {
     RefreshCw,
     Users,
     Cloud,
+    Cpu,
+    Workflow,
+    BriefcaseBusiness,
+    Gauge,
 } from "lucide-react";
 import {
     SiJavascript,
@@ -197,27 +201,27 @@ export default function AboutSection() {
 
                     <div className="mt-8 grid gap-4 md:grid-cols-4">
                         <InfoCard
-                            icon={"⚙️"}
-                            title="Backend APIs"
-                            text="Designing scalable services, REST APIs and business logic."
+                            icon={<Cpu />}
+                            title="Backend Engineering"
+                            description="Building scalable backend services, REST APIs and business logic."
                         />
 
                         <InfoCard
-                            icon={"🔗"}
-                            title="System Integrations"
-                            text="Payroll, HRIS and third-party platform integrations."
+                            icon={<Workflow />}
+                            title="API Integrations"
+                            description="Enterprise integrations between payroll, HR and third-party platforms."
                         />
 
                         <InfoCard
-                            icon={"☁️"}
-                            title="Cloud & DevOps"
-                            text="AWS, Docker, CI/CD and production deployments."
+                            icon={<BriefcaseBusiness />}
+                            title="Payroll Systems"
+                            description="Employee lifecycle management, compensation and payroll workflows."
                         />
 
                         <InfoCard
-                            icon={"🚀"}
-                            title="Performance"
-                            text="Profiling, optimization and production troubleshooting."
+                            icon={<Gauge />}
+                            title="Performance Optimization"
+                            description="Root cause analysis, troubleshooting and system improvements."
                         />
                     </div>
                 </div>
@@ -276,7 +280,7 @@ export default function AboutSection() {
                                     {category.title}
                                 </h4>
 
-                                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                                <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4">
                                     {category.items.map((tech) => (
                                         <TechIconCard
                                             key={tech.name}
@@ -379,11 +383,11 @@ function ExperienceBadge({ years }: { years: string }) {
 function InfoCard({
     icon,
     title,
-    text,
+    description,
 }: {
     icon: React.ReactNode;
     title: string;
-    text: string;
+    description: string;
 }) {
     return (
         <div className="rounded-2xl border border-blue-500/20 bg-slate-950/50 p-4 transition hover:-translate-y-1 hover:bg-blue-500/10">
@@ -391,7 +395,7 @@ function InfoCard({
                 {icon}
             </div>
             <h3 className="font-semibold">{title}</h3>
-            <p className="text-xs text-slate-400">{text}</p>
+            <p className="text-xs text-slate-400">{description}</p>
         </div>
     );
 }

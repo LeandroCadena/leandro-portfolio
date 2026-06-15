@@ -34,8 +34,8 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
         }, 1800);
     }
     return (
-        <aside className="w-72 border-r border-blue-500/20 bg-[#020817]/80 p-6 backdrop-blur-xl">
-            <div className="mb-8 text-center">
+        <aside className="w-full border-b border-blue-500/20 bg-[#020817]/80 p-5 backdrop-blur-xl lg:w-72 lg:border-b-0 lg:border-r lg:p-6">
+            <div className="mb-6 text-center lg:mb-8">
                 <div className="relative mx-auto mb-3 h-32 w-32 overflow-hidden rounded-full border border-blue-400/40 shadow-[0_0_30px_rgba(59,130,246,0.3)]">
                     <Image
                         src="/profile.png"
@@ -50,7 +50,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
                 <p className="mt-1 text-base text-blue-400">{profile.title}</p>
             </div>
 
-            <nav className="space-y-4">
+            <nav className="flex gap-3 overflow-x-auto pb-2 lg:block lg:space-y-4 lg:overflow-visible lg:pb-0">
                 {tabs.map((tab) => {
                     const Icon = tab.icon;
 
@@ -58,7 +58,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`group relative flex w-full items-center gap-3 overflow-hidden rounded-2xl px-5 py-4 text-sm font-medium transition-all duration-300 ${activeTab === tab.id
+                            className={`group relative flex min-w-fit items-center gap-3 overflow-hidden rounded-2xl px-5 py-4 text-sm font-medium transition-all duration-300 lg:w-full ${activeTab === tab.id
                                 ? "border border-blue-400/30 bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_25px_rgba(37,99,235,0.45)]"
                                 : "border border-transparent text-slate-300 hover:border-blue-400/20 hover:bg-blue-500/10 hover:text-white"
                                 }`}
@@ -86,35 +86,44 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
                 })}
             </nav>
 
-            <div className="mt-6 border-t border-blue-500/20 pt-6 text-sm text-slate-300">
+            <div className="mt-8 rounded-2xl hidden lg:block border border-blue-400/10 bg-blue-500/5 px-3 py-5">
                 <div className="space-y-4 text-sm text-slate-300">
-                    <div className="flex items-center gap-3">
-                        <MapPin size={16} className="text-blue-400" />
+                    <div className="flex items-center gap-1">
+                        <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center text-blue-400">
+                            <MapPin size={16} className="text-blue-400" />
+                        </div>
                         <span>{profile.location}</span>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                        <Mail size={16} className="text-blue-400" />
+                    <div className="flex items-center gap-1">
+                        <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center text-blue-400">
+                            <Mail size={16} className="text-blue-400" />
+                        </div>
                         <span>{profile.email}</span>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                        <Phone size={16} className="text-blue-400" />
+                    <div className="flex items-center gap-1">
+                        <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center text-blue-400">
+                            <Phone size={16} className="text-blue-400" />
+                        </div>
                         <span>{profile.phone}</span>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                        <Globe size={16} className="text-blue-400" />
+                    <div className="flex items-center gap-1">
+                        <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center text-blue-400">
+                            <Globe size={16} className="text-blue-400" />
+                        </div>
                         <span>{profile.availability}</span>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                        <Languages size={16} className="text-blue-400" />
+                    <div className="flex items-center gap-1">
+                        <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center text-blue-400">
+                            <Languages size={16} className="text-blue-400" />
+                        </div>
                         <span>{profile.english}</span>
                     </div>
                 </div>
-
-                <div className="mt-6 flex gap-3 border-t border-blue-500/20 pt-6">
+                <div className="mt-6 justify-center flex gap-3 border-t border-blue-500/20 pt-6">
                     <a
                         href={profile.links.github}
                         target="_blank"
@@ -151,6 +160,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
                         )}
                     </button>
                 </div>
+
 
             </div>
         </aside>

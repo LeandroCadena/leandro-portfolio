@@ -14,10 +14,10 @@ export default function PortfolioDashboard() {
         <main className="min-h-screen text-white">
             <div className="aurora" />
 
-            <div className="flex min-h-screen">
+            <div className="flex min-h-screen flex-col lg:flex-row">
                 <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-                <section className="flex-1 overflow-hidden p-8">
+                <section className="flex-1 overflow-hidden p-4 sm:p-6 lg:p-8">
                     {activeTab === "about" && <AboutSection />}
                     {activeTab === "resume" && <ResumeSection />}
                     {activeTab === "projects" && <ProjectsSection />}
