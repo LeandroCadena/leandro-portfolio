@@ -6,7 +6,8 @@ export type PortfolioProject = {
     repoUrl: string;
     liveUrl: string | null;
     language: string | null;
-    stars: number;
+    technologies: string[];
+    highlights: string[];
     updatedAt: string;
     readme: string | null;
     imageUrl: string | null;

@@ -69,11 +69,14 @@ export async function GET() {
                         name: repo.name,
                         title: formatRepoName(repo.name),
                         description:
-                            repo.description || extractReadmeDescription(readme) || "No description available yet.",
+                            repo.description ||
+                            extractReadmeDescription(readme) ||
+                            "No description available yet.",
                         repoUrl: repo.html_url,
                         liveUrl: repo.homepage || null,
                         language: repo.language,
-                        stars: repo.stargazers_count,
+                        technologies: extractTechnologies(readme, repo.language),
+                        highlights: extractHighlights(readme),
                         updatedAt: repo.updated_at,
                         readme,
                         imageUrl,
@@ -184,4 +187,100 @@ function formatRepoName(name: string) {
         .replaceAll("-", " ")
         .replaceAll("_", " ")
         .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function extractTechnologies(readme: string | null, language: string | null) {
+    const knownTech = [
+        "JavaScript",
+        "TypeScript",
+        "React",
+        "Next.js",
+        "Node.js",
+        "Express",
+        "NestJS",
+        "MongoDB",
+        "Mongoose",
+        "PostgreSQL",
+        "MySQL",
+        "Redis",
+        "Docker",
+        "AWS",
+        "Tailwind",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Vercel",
+        "GitHub API",
+        "REST API",
+        "JWT",
+        "Zod",
+    ];
+
+    const source = `${readme || ""} ${language || ""}`.toLowerCase();
+
+    const detected = knownTech.filter((tech) =>
+        source.includes(tech.toLowerCase())
+    );
+
+    if (language && !detected.includes(language)) {
+        detected.unshift(language);
+    }
+
+    return Array.from(new Set(detected)).slice(0, 8);
+}
+
+function extractHighlights(readme: string | null) {
+    if (!readme) return [];
+
+    const lines = readme.split("\n");
+
+    const sectionTitles = [
+        "features",
+        "key features",
+        "main features",
+        "functionality",
+        "functionalities",
+    ];
+
+    const startIndex = lines.findIndex((line) => {
+        const normalized = line
+            .replace(/#/g, "")
+            .trim()
+            .toLowerCase();
+
+        return sectionTitles.includes(normalized);
+    });
+
+    if (startIndex === -1) return [];
+
+    const highlights: string[] = [];
+
+    for (let i = startIndex + 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+
+        if (line.startsWith("#")) break;
+
+        if (line.startsWith("-") || line.startsWith("*")) {
+            const cleaned = cleanMarkdownText(
+                line.replace(/^[-*]\s*/, "")
+            );
+
+            if (cleaned) {
+                highlights.push(cleaned);
+            }
+        }
+
+        if (highlights.length >= 4) break;
+    }
+
+    return highlights;
+}
+
+function cleanMarkdownText(text: string) {
+    return text
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+        .replace(/`([^`]+)`/g, "$1")
+        .replace(/\*\*([^*]+)\*\*/g, "$1")
+        .replace(/\*([^*]+)\*/g, "$1")
+        .replace(/_/g, "")
+        .trim();
 }

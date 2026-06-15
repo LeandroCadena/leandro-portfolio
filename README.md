@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Leandro Portfolio
 
-## Getting Started
+Personal portfolio built with **Next.js**, **TypeScript**, and **Tailwind CSS** to showcase professional experience, projects, technical skills, and continuous learning.
 
-First, run the development server:
+## Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🌐 Portfolio Website
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+https://your-domain.vercel.app
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Overview
 
-## Learn More
+This portfolio serves as a central hub for my professional profile, highlighting:
 
-To learn more about Next.js, take a look at the following resources:
+* Professional experience
+* Technical skills
+* Featured projects
+* Resume and career timeline
+* Current learning journey
+* GitHub integrations
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The application automatically fetches and displays selected GitHub repositories, technologies, and project information.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Modern responsive UI
+* Dynamic GitHub project integration
+* Professional resume timeline
+* Interactive About Me section
+* Technology stack visualization
+* Current learning section powered by GitHub repositories
+* Mobile-friendly design
+* Dark cyber-inspired theme
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Tech Stack
+
+### Frontend
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* Framer Motion
+
+### APIs & Integrations
+
+* GitHub REST API
+
+### Deployment
+
+* Vercel
+
+---
+
+## Featured Projects
+
+### MERN HR Integration Platform
+
+A full-stack HR Integration Platform that simulates how providers such as Merge.dev or Finch connect companies with HRIS and Payroll systems.
+
+**Features**
+
+* Company management
+* Employee management
+* CSV employee import
+* Integration creation
+* Provider synchronization simulation
+* Authentication and authorization
+* Dashboard and reporting
+
+**Tech Stack**
+
+* React
+* Node.js
+* Express
+* MongoDB
+* Docker
+
+---
+
+## Goals
+
+This portfolio was created to:
+
+* Showcase real-world software engineering experience
+* Present professional and personal projects
+* Demonstrate frontend and backend development skills
+* Provide recruiters and hiring managers with a centralized professional profile
+* Continuously evolve as new projects and technologies are added
+
+---
+
+## Contact
+
+### LinkedIn
+
+https://linkedin.com/in/YOUR_PROFILE
+
+### GitHub
+
+https://github.com/LeandroCadena
+
+### Email
+
+[cadenaleandro97@gmail.com](mailto:cadenaleandro97@gmail.com)
+
+---
+
+## License
+
+This project is intended for personal portfolio and professional presentation purposes.

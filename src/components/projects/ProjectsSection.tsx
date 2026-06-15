@@ -98,23 +98,39 @@ function ProjectCard({ project }: { project: PortfolioProject }) {
                 {project.description}
             </p>
 
-            {project.readme && (
+            {project.highlights.length > 0 && (
                 <div className="mb-5 rounded-2xl border border-blue-400/10 bg-slate-950/60 p-4">
-                    <p className="mb-2 text-xs uppercase tracking-widest text-blue-400">
-                        README Preview
+                    <p className="mb-3 text-xs uppercase tracking-widest text-blue-400">
+                        Key Highlights
                     </p>
 
-                    <p className="line-clamp-4 text-sm text-slate-400">
-                        {cleanReadmePreview(project.readme)}
-                    </p>
+                    <ul className="space-y-2 text-sm text-slate-400">
+                        {project.highlights.map((highlight) => (
+                            <li key={highlight} className="flex gap-2">
+                                <span className="text-blue-400">•</span>
+                                <span>{highlight}</span>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
 
             <div className="mb-5 flex flex-wrap gap-2">
-                {project.language && (
-                    <span className="rounded-lg border border-blue-400/15 bg-slate-950/50 px-3 py-1 text-xs text-blue-100">
-                        {project.language}
-                    </span>
+                {project.technologies.length > 0 ? (
+                    project.technologies.map((tech) => (
+                        <span
+                            key={tech}
+                            className="rounded-lg border border-blue-400/15 bg-slate-950/50 px-3 py-1 text-xs text-blue-100"
+                        >
+                            {tech}
+                        </span>
+                    ))
+                ) : (
+                    project.language && (
+                        <span className="rounded-lg border border-blue-400/15 bg-slate-950/50 px-3 py-1 text-xs text-blue-100">
+                            {project.language}
+                        </span>
+                    )
                 )}
 
                 <span className="rounded-lg border border-blue-400/15 bg-slate-950/50 px-3 py-1 text-xs text-blue-100">
@@ -145,16 +161,6 @@ function ProjectCard({ project }: { project: PortfolioProject }) {
             </div>
         </div>
     );
-}
-
-function cleanReadmePreview(readme: string) {
-    return readme
-        .replace(/#/g, "")
-        .replace(/!\[.*?\]\(.*?\)/g, "")
-        .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-        .replace(/`/g, "")
-        .trim()
-        .slice(0, 260);
 }
 
 function formatDate(date: string) {
